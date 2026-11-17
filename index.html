@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0c1814" />
+  <meta name="description" content="A research-informed virtual peat core: explore the layers of a conceptual European raised bog." />
+  <title>Below the Bog — Interactive Peat Core</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">{
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"
+    }
+  }</script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="rail" aria-label="Exhibit navigation">
+      <div class="brand"><span class="brand-icon">✳</span><span>FIELDNOTES<span class="brand-dot">.</span></span></div>
+      <div class="rail-kicker">THE LIVING ARCHIVE <span> / 001</span></div>
+      <div class="rail-main">
+        <p class="eyebrow">A VIRTUAL NATURAL HISTORY EXHIBIT</p>
+        <h1>Below<br/><em>the Bog.</em></h1>
+        <p class="intro">A journey through a peatland, from living moss to the ground that existed before the bog.</p>
+        <div class="strata-label"><span>EXPLORE THE CORE</span><span>TOP → BOTTOM</span></div>
+        <nav id="layerNav" class="layer-nav" aria-label="Choose soil layer"></nav>
+      </div>
+      <div class="rail-bottom">
+        <span class="tiny-marker"></span><p>SPECIMEN 01 / EUROPEAN RAISED BOG<br/><strong>Conceptual reconstruction · Not to scale</strong></p>
+      </div>
+    </aside>
+
+    <main class="stage" aria-label="Interactive 3D peat soil core exhibit">
+      <div class="stage-top">
+        <div class="collection-tag"><span class="live-dot"></span> SOIL ATLAS <span class="sep">/</span> INTERACTIVE SPECIMEN</div>
+        <button class="plain-help" id="helpButton" aria-label="Show interaction instructions"><span>?</span> HOW TO EXPLORE</button>
+      </div>
+      <div id="viewport" class="viewport" tabindex="0" role="application" aria-label="3D peat core. Drag to rotate, scroll or pinch to zoom, click a visible layer to learn more. Keyboard alternative: choose a layer from the left panel.">
+        <div class="stage-glow"></div>
+        <div class="ring ring-1"></div><div class="ring ring-2"></div>
+        <div class="axis-caption axis-top">SURFACE <span>✳</span></div>
+        <div class="axis-caption axis-bottom">BEFORE PEAT FORMATION <span>↓</span></div>
+        <div id="webglMount" aria-hidden="true"></div>
+        <div id="zoneBadge" class="zone-badge" hidden></div>
+        <div id="pointerHint" class="pointer-hint">CLICK A LAYER TO INVESTIGATE <span>↗</span></div>
+        <div id="loadError" class="load-error" hidden>3D rendering could not load. The complete exhibit remains accessible through the layer list on the left.</div>
+      </div>
+      <div class="stage-footer">
+        <div class="mode-toggle" role="group" aria-label="Exhibit view">
+          <button data-mode="strata" class="selected" aria-pressed="true">STRATIGRAPHY</button>
+          <button data-mode="water" aria-pressed="false">HYDROLOGY</button>
+          <button data-mode="texture" aria-pressed="false">DECOMPOSITION</button>
+        </div>
+        <div class="stage-actions">
+          <button id="cutButton" aria-pressed="false" title="Toggle cutaway view"><span class="action-symbol">◫</span> CUTAWAY</button>
+          <button id="spinButton" aria-pressed="false" title="Toggle auto rotation"><span class="action-symbol">↻</span> AUTO-SPIN</button>
+          <button id="resetButton" title="Reset view"><span class="action-symbol">⌖</span> RESET</button>
+        </div>
+      </div>
+    </main>
+
+    <aside class="details" aria-live="polite" aria-atomic="false">
+      <div class="details-top"><span class="details-kicker">THE STORY IN THE SOIL</span><span id="layerCounter">01 / 06</span></div>
+      <div class="details-content" id="detailsContent"></div>
+      <div class="details-bottom">
+        <div class="tour-heading"><span>CURATOR'S WALKTHROUGH</span><span id="tourProgress">01 / 06</span></div>
+        <div class="tour-controls"><button id="prevButton">← PREVIOUS</button><button id="nextButton">NEXT LAYER →</button></div>
+        <button class="method-link" id="methodButton">ABOUT THIS RECONSTRUCTION <span>↗</span></button>
+      </div>
+    </aside>
+  </div>
+  <dialog id="infoDialog" aria-labelledby="modalTitle">
+    <form method="dialog"><button class="dialog-close" aria-label="Close">×</button></form>
+    <div id="dialogBody"></div>
+  </dialog>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
